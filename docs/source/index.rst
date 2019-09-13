@@ -16,7 +16,7 @@ Here is how easy it is to use
 >>> my_list.select("abs(x)").where("x>3") # get all elements where the absolute value is greater than 3.
 [9,5]
 >>> my_list.first("x % 2 == 0") # get the first even number
-
+2
 Here is a list of functions
 
 ============= =========================== ======
