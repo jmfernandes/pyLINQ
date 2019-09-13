@@ -3,10 +3,10 @@ from functools import reduce, singledispatch, update_wrapper, wraps
 from inspect import getsource
 from types import LambdaType
 
-def handle_inputs(conditional_statement=True):
+def handle_inputs(conditional_statement = True):
     def decorator(func):
         @wraps(func)
-        def wrapper(self, expression=None, *args, **kwargs):
+        def wrapper(self, expression = None, *args, **kwargs):
             # Return empty list if empty
             if len(self._list) == 0:
                 return self.__class__()
@@ -48,7 +48,7 @@ class List(MutableSequence):
     operators = ["==","!=","<",">", "<=",">="]
     #endregion
     #region Extended List methods
-    def __init__(self, data=None):
+    def __init__(self, data = None):
         super().__init__()
         if data:
             self._list = list(data)
@@ -114,13 +114,14 @@ class List(MutableSequence):
         self._list.remove(val)
     #endregion
     #region Custom LINQ style methods
-    @handle_inputs(conditional_statement=True)
+    @handle_inputs(conditional_statement = True)
     def any(self, expression):
-        """ Checks to see if any items in a list meet a conditional criteria. E.g. List.any("x > 0")
+        """ Checks to see if any items in a list meet a conditional criteria. E.g. List.any("x > 0").
 
-        :param expression: The expression to apply to the List object. Can either take a string "x > 0" or a lambda expression lambda x : x > 0.
-        :type expression: str or LambdaType.
-        :returns: a new List object that results from the applied expression.
+        :param expression: The expression to apply to the List object, which must be a conditional statement. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType
+        :returns: a bool that is true if any elements satisfy the applied expression.
 
         """
         newresult = False
@@ -133,8 +134,16 @@ class List(MutableSequence):
                 element_error(item, message)
         return newresult
 
-    @handle_inputs(conditional_statement=True)
+    @handle_inputs(conditional_statement = True)
     def all(self, expression):
+        """ Checks to see if all items in a list meet a conditional criteria. E.g. List.all("x > 0").
+
+        :param expression: The expression to apply to the List object, which must be a conditional statement. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType
+        :returns: a bool that is true if all elements satisfy the applied expression.
+
+        """
         newresult = True
         for item in self._list:
             try:
@@ -147,8 +156,16 @@ class List(MutableSequence):
                 break
         return newresult
 
-    @handle_inputs(conditional_statement=True)
-    def count(self, expression=None):
+    @handle_inputs(conditional_statement = True)
+    def count(self, expression = None):
+        """ Counts the number of items in a list that meet a conditional criteria. E.g. List.count("x > 0").
+
+        :param expression: The expression to apply to the List object, which must be a conditional statement. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType or None
+        :returns: an integer representing the number of elements that satisfy the applied expression.
+
+        """
         newcount = 0
         for item in self._list:
             try:
@@ -158,8 +175,17 @@ class List(MutableSequence):
                 element_error(item, message)
         return newcount
 
-    @handle_inputs(conditional_statement=True)
-    def distinct(self, expression=None):
+    @handle_inputs(conditional_statement = True)
+    def distinct(self, expression = None):
+        """ Checks to see if any items in a list meet a conditional criteria, and also removes duplicates. E.g. List.distinct("x > 0").
+
+        :param expression: The expression to apply to the List object, which must be a conditional statement. \
+        If no expression is supplied, then function acts on the whole list. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType or None
+        :returns: a new List object that results from the applied expression.
+
+        """
         newlist = []
         for item in self._list:
             try:
@@ -169,8 +195,17 @@ class List(MutableSequence):
                 element_error(item, message)
         return self.__class__(newlist)
 
-    @handle_inputs(conditional_statement=True)
-    def duplicate(self, expression=None):
+    @handle_inputs(conditional_statement = True)
+    def duplicate(self, expression = None):
+        """ Checks to see if any items in a list meet a conditional criteria, but only if they are duplicate items. E.g. List.duplicate("x > 0").
+
+        :param expression: The expression to apply to the List object, which must be a conditional statement. \
+        If no expression is supplied, then function acts on the whole list. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType or None
+        :returns: a new List object that results from the applied expression.
+
+        """
         corelist = []
         newlist = []
         for item in self._list:
@@ -183,8 +218,17 @@ class List(MutableSequence):
                 element_error(item, message)
         return self.__class__(newlist)
 
-    @handle_inputs(conditional_statement=True)
-    def first(self, expression=None):
+    @handle_inputs(conditional_statement = True)
+    def first(self, expression = None):
+        """ Finds the first item in a list that meets a conditional criteria. E.g. List.first("x > 0").
+
+        :param expression: The expression to apply to the List object, which must be a conditional statement. \
+        If no expression is supplied, then function acts on the whole list. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType or None
+        :returns: an item from the list or None if nothing is found.
+
+        """
         result = None
         for item in self._list:
             try:
@@ -195,8 +239,16 @@ class List(MutableSequence):
                 element_error(item, message)
         return result
 
-    @handle_inputs(conditional_statement=False)
+    @handle_inputs(conditional_statement = False)
     def groupby(self, expression):
+        """ Uses a parameter of that data to group all entries according to key values. E.g. List.groupby("x['key']").
+
+        :param expression: The expression to apply to the List object. \
+        Can either take a string ("x[0]") or a lambda expression (lambda x : x[0]).
+        :type expression: str or LambdaType
+        :returns: a new List object that results from the applied expression.
+
+        """
         newdict = {}
         for item in self._list:
             try:
@@ -211,8 +263,17 @@ class List(MutableSequence):
         newlist = [{k:v} for k,v in newdict.items()]
         return self.__class__(newlist)
 
-    @handle_inputs(conditional_statement=True)
-    def last(self, expression=None):
+    @handle_inputs(conditional_statement = True)
+    def last(self, expression = None):
+        """ Finds the last item in a list that meets a conditional criteria. E.g. List.last("x > 0").
+
+        :param expression: The expression to apply to the List object, which must be a conditional statement. \
+        If no expression is supplied, then function acts on the whole list. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType or None
+        :returns: an item from the list or None if nothing is found.
+
+        """
         result = None
         for item in self._list[::-1]:
             try:
@@ -223,8 +284,17 @@ class List(MutableSequence):
                 element_error(item, message)
         return result
 
-    @handle_inputs(conditional_statement=False)
-    def max(self, expression=None):
+    @handle_inputs(conditional_statement = False)
+    def max(self, expression = None):
+        """ Finds the maximum value item in a list. Optionally, the item can be applied to a conditional criteria. E.g. List.max("x > 0") or List.max("x**2").
+
+        :param expression: The expression to apply to the List object. Can also be an operation or function to apply to elements. \
+        If no expression is supplied, then function acts on the whole list. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType or None
+        :returns: an item from the list or None if nothing is found.
+
+        """
         newlist = []
         for item in self._list:
             try:
@@ -239,8 +309,17 @@ class List(MutableSequence):
             return None
         return reduce(lambda a,b : a if a > b else b, newlist)
 
-    @handle_inputs(conditional_statement=False)
-    def min(self, expression=None):
+    @handle_inputs(conditional_statement = False)
+    def min(self, expression = None):
+        """ Finds the minimum value item in a list. Optionally, the item can be applied to a conditional criteria. E.g. List.min("x > 0") or List.min("x**2").
+
+        :param expression: The expression to apply to the List object. Can also be an operation or function to apply to elements. \
+        If no expression is supplied, then function acts on the whole list. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType or None
+        :returns: an item from the list or None if nothing is found.
+
+        """
         newlist = []
         for item in self._list:
             try:
@@ -255,14 +334,33 @@ class List(MutableSequence):
             return None
         return reduce(lambda a,b : a if a < b else b, newlist)
 
-    @handle_inputs(conditional_statement=False)
-    def orderby(self, expression=None, reverse=False):
+    @handle_inputs(conditional_statement = False)
+    def orderby(self, expression = None, reverse = False):
+        """ Orders the items in a list by a certain value. Optionally, the item can be applied to a conditional criteria. E.g. List.orderby("x > 0") or List.orderby("len(x)").
+
+        :param expression: The expression to apply to the List object, which must be a conditional statement. \
+        If no expression is supplied, then function acts on the whole list. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType or None
+        :param reverse: True if the list should be descending. False if the list should be ascending.
+        :type reverse: bool
+        :returns: a new List object that results from the applied expression.
+
+        """
         newlist = self._list.copy()
-        newlist.sort(key=expression, reverse=reverse)
+        newlist.sort(key = expression, reverse = reverse)
         return self.__class__(newlist)
 
-    @handle_inputs(conditional_statement=False)
+    @handle_inputs(conditional_statement = False)
     def select(self, expression):
+        """ Applies an operator or function to each item in the list. E.g. List.select("len(x)").
+
+        :param expression: The expression to apply to the List object. \
+        Can either take a string ("x**2") or a lambda expression (lambda x : x**2).
+        :type expression: str or LambdaType
+        :returns: a new List object that results from the applied expression.
+
+        """
         newlist = []
         for item in self._list:
             try:
@@ -272,8 +370,16 @@ class List(MutableSequence):
                 element_error(item, message)
         return self.__class__(newlist)
 
-    @handle_inputs(conditional_statement=True)
+    @handle_inputs(conditional_statement = True)
     def skipwhile(self, expression):
+        """ Returns all elements after the first item in the list that fails to meet a conditional criteria. E.g. List.skipwhile("x > 0").
+
+        :param expression: The expression to apply to the List object, which must be a conditional statement. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType
+        :returns: a new List object that results from the applied expression.
+
+        """
         skiplist = []
         for item in self._list:
             try:
@@ -287,8 +393,17 @@ class List(MutableSequence):
         newlist = [x for x in self._list if x not in skiplist]
         return self.__class__(newlist)
 
-    @handle_inputs(conditional_statement=False)
-    def sum(self, expression=None):
+    @handle_inputs(conditional_statement = False)
+    def sum(self, expression = None):
+        """ Finds the sum of all values in a list. Optionally, the item can be applied to a conditional criteria. E.g. List.sum("x > 0") or List.sum("x**2")
+
+        :param expression: The expression to apply to the List object. Can also be an operation or function to apply to elements. \
+        If no expression is supplied, then function acts on the whole list. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType or None
+        :returns: an item from the list or None if nothing is found.
+
+        """
         newlist = []
         for item in self._list:
             try:
@@ -303,8 +418,16 @@ class List(MutableSequence):
             return(None)
         return reduce(lambda a,b : a+b, newlist)
 
-    @handle_inputs(conditional_statement=True)
+    @handle_inputs(conditional_statement = True)
     def takewhile(self, expression):
+        """ Returns all elements before the first item in the list that fails to meet a conditional criteria. E.g. List.takewhile("x > 0").
+
+        :param expression: The expression to apply to the List object, which must be a conditional statement. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType
+        :returns: a new List object that results from the applied expression.
+
+        """
         newlist = []
         for item in self._list:
             try:
@@ -317,9 +440,17 @@ class List(MutableSequence):
                 break
         return self.__class__(newlist)
 
-    @handle_inputs(conditional_statement=True)
+    @handle_inputs(conditional_statement = True)
     def where(self, expression):
-        """Produces where statement"""
+        """ Checks to see if any items in a list meet a conditional criteria. E.g. List.where("x > 0").
+
+        :param expression: The expression to apply to the List object, which must be a conditional statement. \
+        If no expression is supplied, then function acts on the whole list. \
+        Can either take a string ("x > 0") or a lambda expression (lambda x : x > 0).
+        :type expression: str or LambdaType
+        :returns: a new List object that results from the applied expression.
+
+        """
         newlist = []
         for item in self._list:
             try:

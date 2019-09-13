@@ -35,8 +35,8 @@ sys.path.insert(0, os.path.abspath('../../pyLINQ'))
 extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.coverage',
-    'sphinx.ext.imgmath',
-    'recommonmark']
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.imgmath']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -82,6 +82,9 @@ pygments_style = 'sphinx'
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
+html_show_sourcelink = False
+
+add_module_names = False
 
 # -- Options for HTML output ----------------------------------------------
 

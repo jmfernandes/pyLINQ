@@ -13,10 +13,14 @@ This library makes filtering and sorting lists easier.
 Here is how easy it is to use
 
 >>> my_list = List([1,-9,5,2,1])
->>> my_list.select("abs(x)").where("x>3") # get all elements where the absolute value is greater than 3.
+>>> my_list.select("abs(x)").where("x>3") #Get elements where the absolute value is greater than 3.
 [9,5]
->>> my_list.first("x % 2 == 0") # get the first even number
+>>> my_list.first("x % 2 == 0") #Get the first even number
 2
+>>> nameList = List(['harry','tina','jeff','hank','john','tom','steve'])
+>>> nameList.groupby("x[0]") #Group list items by first letter in name.
+[{'h': ['harry', 'hank']}, {'t': ['tina', 'tom']}, {'j': ['jeff', 'john']}, {'s': ['steve']}]
+
 Here is a list of functions
 
 ============= =========================== ======

@@ -5,15 +5,15 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='pyLINQ',
-      version='0.2.0',
+      version='0.4.0',
       description='Makes filtering and sorting lists easier and more readable.',
       long_description=long_description,
-      long_description_content_type='text/markdown',
-      url='https://github.com/jmfernandes/robin_stocks',
+      long_description_content_type='text/x-rst',
+      url='https://github.com/jmfernandes/pyLINQ',
       author='Josh Fernandes',
       author_email='joshfernandes@mac.com',
       keywords=['LINQ', 'list', 'list comprehension' ,'lambda', 'utility', 'C#', 'where', 'set', 'filter', 'sort'],

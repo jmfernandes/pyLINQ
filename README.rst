@@ -12,6 +12,9 @@ Here is how easy it is to use
 [9,5]
 >>> my_list.first("x % 2 == 0") # get the first even number
 2
+>>> nameList = List(['harry','tina','jeff','hank','john','tom','jeremy','brenda','steve'])
+>>> nameList.groupby("x[0]")
+[{'h': ['harry', 'hank']}, {'t': ['tina', 'tom']}, {'j': ['jeff', 'john', 'jeremy']}, {'b': ['brenda']}, {'s': ['steve']}]
 
 Here is a list of functions
 
