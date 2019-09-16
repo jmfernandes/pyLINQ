@@ -463,10 +463,24 @@ class List(MutableSequence):
     #region Set Methods
     @enforce_list_input
     def concat(self, other):
-        return (self._list + other._list)
+        """ Adds all the elements of another List object onto the calling List object. E.g. List1.concat(List2)
+
+        :param other: Another List instance to concatinate with the calling List.
+        :type other: List
+        :returns: a new List object that is the concatination of self and other.
+
+        """
+        return self.__class__(self._list + other._list)
 
     @enforce_list_input
     def except_set(self, other):
+        """ Removes all instances from a list that exist in another list exept for duplicates. E.g. List1.except_set(List2)
+
+        :param other: Another List instance to compare entries with the calling List.
+        :type other: List
+        :returns: a new List object that contains all items in self, except any item that exist in other.
+
+        """
         newlist = []
         for item in self._list:
             if  item not in newlist and item not in other._list:
@@ -475,6 +489,13 @@ class List(MutableSequence):
 
     @enforce_list_input
     def intersect(self, other):
+        """ Returns all entries that are common between two lists without duplicates. E.g. List1.intersect(List2)
+
+        :param other: Another List instance to compare entries with the calling List.
+        :type other: List
+        :returns: a new List object that contains all items that exist in both self and other.
+
+        """
         newlist = []
         for item in self._list:
             if  item not in newlist and item in other._list:
@@ -483,6 +504,13 @@ class List(MutableSequence):
 
     @enforce_list_input
     def union(self, other):
+        """ Returns all entries for two Lists except for any duplicates. E.g. List1.union(List2)
+
+        :param other: Another List instance to compare entries with the calling List.
+        :type other: List
+        :returns: a new List object that contains all items in self and other, except any duplicates.
+
+        """
         newlist = []
         for item in self._list:
             if  item not in newlist:
@@ -497,7 +525,7 @@ class List(MutableSequence):
         """ Checks to see if any items in a list are of a certain type. E.g. List.oftype(int)
 
         :param elementType: The expression to apply to the List object. Can either take a string "int","dict","List", etc. or a type.
-        :type elementType: str or type.
+        :type elementType: str or type
         :returns: a new List object that contains only items of the specified type.
 
         """
@@ -513,6 +541,13 @@ class List(MutableSequence):
         return self.__class__(newlist)
 
     def element(self, number):
+        """ Returns the item at a specified index. E.g. List.element(0)
+
+        :param number: The index to get the item from.
+        :type number: int
+        :returns: an item from the list or None if index is out of range.
+
+        """
         try:
             result = self._list[ii]
         except:

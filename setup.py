@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='pyLINQ',
-      version='0.4.0',
+      version='0.5.0',
       description='Makes filtering and sorting lists easier and more readable.',
       long_description=long_description,
       long_description_content_type='text/x-rst',
