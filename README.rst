@@ -1,48 +1,52 @@
 pyLINQ
 ======
 
-This library makes filtering and sorting lists easier.
+This library extends regular python lists to make them easier to filter and sort. Typical list comprehensions
+such as [x for x in list] can quickly grow out of control for complicated behaviors. pyLINQ solves this
+by replacing all features of list comprehensions with a series of methods that act on a list.
+
+More in depth documentation can be found `here <https://pylinq.readthedocs.io/en/latest/>`_.
 
 -----
 
-Here is how easy it is to use
+Here is how easy it is to use:
 
 >>> my_list = List([1,-9,5,2,1])
->>> my_list.select("abs(x)").where("x>3") # get all elements where the absolute value is greater than 3.
+>>> my_list.select("abs(x)").where("x>3") # Get elements where the absolute value is greater than 3.
 [9,5]
->>> my_list.first("x % 2 == 0") # get the first even number
+>>> my_list.first("x % 2 == 0") # Get the first even number
 2
->>> name_list = List(['harry','tina','jeff','hank','john','tom','jeremy','brenda','steve'])
->>> name_list.groupby("x[0]")
-[{'h': ['harry', 'hank']}, {'t': ['tina', 'tom']}, {'j': ['jeff', 'john', 'jeremy']}, {'b': ['brenda']}, {'s': ['steve']}]
+>>> nameList = List(['harry','tina','jeff','hank','john','tom','steve'])
+>>> nameList.groupby("x[0]") # Group list elements by first letter in name.
+[{'h': ['harry', 'hank']}, {'t': ['tina', 'tom']}, {'j': ['jeff', 'john']}, {'s': ['steve']}]
+>>> nameList.orderby("x[0]").takewhile("x[0] < 'm'") # Get all names that come before letter 'm'.
+['harry', 'hank', 'jeff', 'john']
 
-Here is a list of functions
-
-============= =========================== ======
+============= ========================================================= =========
    List of Methods for List Object
-------------------------------------------------
-function name example call with parameter output
-============= =========================== ======
-any           False                       False
-all           False                       True
-concat        True                        True
-count         True                        True
-distinct      True                        True
-duplicate     False                       False
-element       True                        True
-except_set    False                       True
-first         True                        True
-groupby       True                        True
-intersect     True                        True
-last          True                        True
-max           True                        True
-min           True                        True
-oftype        True                        True
-orderby       True                        True
-select        True                        True
-skipwhile     True                        True
-sum           True                        True
-takewhile     True                        True
-union         True                        True
-where         True                        True
-============= =========================== ======
+---------------------------------------------------------------------------------
+Method Name   Description                                                Output
+============= ========================================================= =========
+any           Returns true if any elements matches expression            bool
+all           Returns true if all elements matches expression            bool
+concat        Combines two lists into a single list                      List
+count         Returns the number of elements that match expression       int
+distinct      Returns all elements that are not duplicates               List
+duplicate     Returns all elements that are duplicates                   List
+element       Returns the element at a specific index                    element
+except_set    Returns all elements except if they are in a second list   List
+first         Returns the first element that matches an expression       element
+groupby       Groups all value by a certain key                          List
+intersect     Returns all elements common between two lists              List
+last          Returns the last element that matches an expression        element
+max           Returns the max element of the list                        element
+min           Returns the min element of the list                        element
+oftype        Returns all elements that match a certain type             List
+orderby       Sort the elements                                          List
+select        Perform an operation/function on list elements             List
+skipwhile     Return all elements after an expression is true            List
+sum           Return the sum of all elements                             float
+takewhile     Return all elements before an expression is false          List
+union         Return the combination of two lists                        List
+where         Return all elements that meet an expression                List
+============= ========================================================= =========
